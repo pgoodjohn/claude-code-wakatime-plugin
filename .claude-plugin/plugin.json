@@ -4,6 +4,5 @@
   "description": "WakaTime integration for Claude Code — track your AI coding activity",
   "author": {
     "name": "Pietro Bongiovanni"
-  },
-  "hooks": "./hooks/hooks.json"
+  }
 }
