@@ -59,11 +59,14 @@ function sendHeartbeat(
 
 function readStdin(): Promise<string> {
   return new Promise((resolve) => {
+    if (process.stdin.isTTY) {
+      resolve("");
+      return;
+    }
     const chunks: Buffer[] = [];
     process.stdin.on("data", (chunk) => chunks.push(chunk));
     process.stdin.on("end", () => resolve(Buffer.concat(chunks).toString()));
-    // If stdin is empty/closed immediately, resolve after a short timeout
-    setTimeout(() => resolve(Buffer.concat(chunks).toString()), 1000);
+    process.stdin.on("error", () => resolve(""));
   });
 }
 
